@@ -251,10 +251,10 @@ class OM::XML::Term
     b_method = self.path
     if self.path.include?(":")
       ns_prefix = self.path[0..path.index(":")-1]
-      b_ref = "xml[\"#{ns_prefix}\"]"
+      b_ref = "xml['#{ns_prefix}']"
       b_method = self.path[path.index(":")+1..-1]
     elsif !self.namespace_prefix.nil? and self.namespace_prefix != 'oxns'
-      b_ref = "xml[\"#{self.namespace_prefix}\"]"
+      b_ref = "xml['#{self.namespace_prefix}']"
     end
     if Nokogiri::XML::Builder.method_defined? b_method.to_sym
       b_method += '_'
