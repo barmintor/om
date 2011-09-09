@@ -8,6 +8,7 @@ describe "OM::XML::Term" do
     @test_volume = OM::XML::Term.new(:volume, :path=>"detail", :attributes=>{:type=>"volume"}, :default_content_path=>"number")
     @test_date = OM::XML::Term.new(:namePart, :attributes=>{:type=> "date"})
     @test_affiliation = OM::XML::Term.new(:affiliation)
+    @test_type = OM::XML::Term.new(:type)
     @test_role_code = OM::XML::Term.new(:roleTerm, :attributes=>{:type=>"code"})
   end
   
@@ -165,6 +166,9 @@ describe "OM::XML::Term" do
     it "should generate a template call for passing into the builder block (assumes 'xml' as the argument for the block)" do
       @test_date.xml_builder_template.should == 'xml.namePart( \'#{builder_new_value}\', \'type\'=>\'date\' )'
       @test_affiliation.xml_builder_template.should == 'xml.affiliation( \'#{builder_new_value}\' )'
+    end
+    it "should generate a template call for passing into the builder block (assumes 'xml' as the argument for the block) for terms that share a name with an existing method on the builder" do
+      @test_type.xml_builder_template.should == 'xml.type_( \'#{builder_new_value}\' )'
     end
     it "should accept extra options" do
       marcrelator_role_xml_builder_template = 'xml.roleTerm( \'#{builder_new_value}\', \'type\'=>\'code\', \'authority\'=>\'marcrelator\' )'  
