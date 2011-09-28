@@ -5,6 +5,7 @@ describe "OM::XML::Term" do
   
   before(:each) do
     @test_name_part = OM::XML::Term.new(:namePart, {}).generate_xpath_queries!
+    @test_person = OM::XML::Term.new(:namePart, {:attributes=>{:type=>:none}})
     @test_volume = OM::XML::Term.new(:volume, :path=>"detail", :attributes=>{:type=>"volume"}, :default_content_path=>"number")
     @test_date = OM::XML::Term.new(:namePart, :attributes=>{:type=> "date"})
     @test_affiliation = OM::XML::Term.new(:affiliation)
@@ -165,6 +166,7 @@ describe "OM::XML::Term" do
     
     it "should generate a template call for passing into the builder block (assumes 'xml' as the argument for the block)" do
       @test_date.xml_builder_template.should == 'xml.namePart( \'#{builder_new_value}\', \'type\'=>\'date\' )'
+      @test_person.xml_builder_template.should == 'xml.namePart( \'#{builder_new_value}\' )'
       @test_affiliation.xml_builder_template.should == 'xml.affiliation( \'#{builder_new_value}\' )'
     end
     it "should generate a template call for passing into the builder block (assumes 'xml' as the argument for the block) for terms that share a name with an existing method on the builder" do
